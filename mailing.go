@@ -3,6 +3,7 @@ package main
 
 import (
     "html/template"
+    "log"
     "net/http"
     "database/sql"
     _ "github.com/mattn/go-sqlite3"
@@ -62,14 +63,13 @@ func main() {
     defer db.Close()
     CreateTable(db)
     tmpl := template.Must(template.ParseFiles("forms.html"))
-
+    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static")))) 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
         if r.Method != http.MethodPost {
             tmpl.Execute(w, nil)
             return
         }
-	
 
         details := ContactDetails{
             Email: r.FormValue("email"),
@@ -81,5 +81,5 @@ func main() {
         tmpl.Execute(w, struct{ Success bool }{true})
     })
 
-    http.ListenAndServe(":8080", nil)
+    log.Fatal(http.ListenAndServe("localhost:8080", nil))
 }

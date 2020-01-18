@@ -1,14 +1,16 @@
 <!-- forms.html -->
 {{if .Success}}
     <h1>Thanks for subscribing!</h1>
+    <link rel="stylesheet" type="text/css" href="forms.css">
 {{else}}
     <h1>Subscribe for Planet-A mailing list</h1>
+    <link rel="stylesheet" type="text/css" href="static/forms.css">
     <form method="POST">
-        <label>Email:</label><br />
+        <label>Email</label>
         <input type="text" name="email"><br />
-        <label>Name:</label><br />
+        <label>Name</label>
         <input type="text" name="name"><br />
-        <label>Message:</label><br />
+        <label>Message</label>
         <textarea name="message"></textarea><br />
         <input type="submit">
     </form>
